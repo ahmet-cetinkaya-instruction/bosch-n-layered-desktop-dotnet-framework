@@ -12,6 +12,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AutoMapper;
+using Business.Profiles;
 
 namespace WinFormsUI
 {
@@ -23,7 +25,13 @@ namespace WinFormsUI
         {
             ICategoryDal categoryDal = new AdoCategoryDal();
             ICustomerDal customerDal = new AdoCustomerDal();
-            _categoryService = new CategoryManager(categoryDal, new CategoryBusinessRules(categoryDal));
+            AutoMapperProfiles autoMapperProfiles = new AutoMapperProfiles();
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(autoMapperProfiles);
+            });
+            IMapper mapper = new Mapper(mapperConfig);
+            _categoryService = new CategoryManager(categoryDal, new CategoryBusinessRules(categoryDal), mapper);
             _customerService = new CustomerManager(customerDal, new CustomerBusinessRules(customerDal));
             InitializeComponent();
         }
@@ -31,16 +39,16 @@ namespace WinFormsUI
         private void btnReadData_Click(object sender, EventArgs e)
         {
 
-            //var result = _categoryService.GetById(2);
-            // Console.WriteLine(result.Id + "  " + result.Name);
+            var result = _categoryService.GetById(2);
+            Console.WriteLine(result.Id + "  " + result.Name);
 
             //foreach (var item in _customerService.GetAll())
             //{
             //    Console.WriteLine("Customer : " + item.CustomerID + " " + item.CompanyName);
             //}
 
-            var resultOfCustomer = _customerService.GetById("BERGS");
-            Console.WriteLine(resultOfCustomer.CustomerID + " " + resultOfCustomer.CompanyName);
+            //var resultOfCustomer = _customerService.GetById("BERGS");
+            //Console.WriteLine(resultOfCustomer.CustomerID + " " + resultOfCustomer.CompanyName);
 
             //foreach (var item in _categoryService.GetAll())
             //{

@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -47,6 +50,7 @@
     <Compile Include="BusinessRules\CustomerBusinessRules.cs" />
     <Compile Include="Concretes\CategoryManager.cs" />
     <Compile Include="Concretes\CustomerManager.cs" />
+    <Compile Include="Profiles\AutoMapperProfiles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request\Category\CreateCategoryRequest.cs" />
     <Compile Include="Request\Category\DeleteCategoryRequest.cs" />
@@ -59,7 +63,9 @@
     <Compile Include="Response\Customer\GetCustomerResponse.cs" />
     <Compile Include="Response\Customer\ListCustomerResponse.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{2d216234-149a-4be7-b670-a06ed1751cb2}</Project>
@@ -70,5 +76,6 @@
       <Name>Entities</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

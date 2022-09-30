@@ -14,7 +14,7 @@ namespace Core.DataAccess.Adonet.Helpers
     {
         public static List<T> CreateReadConnection<T>(string query) //generic hale getirdik
         {
-            SqlConnection sqlConnection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Northwind;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            SqlConnection sqlConnection = new SqlConnection(@"Data Source=localhost;Initial Catalog=Northwind;User=sa;Password=Passw0rd;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             SqlCommand command = new SqlCommand(query, sqlConnection);
             sqlConnection.Open();
 

@@ -91,6 +91,7 @@ namespace Business.Concretes
             foundCustomer.CustomerID = request.CustomerID;
             foundCustomer.CompanyName = request.CompanyName;
             foundCustomer.ContactName = request.ContactName;
+            // ..
 
             _customerDal.Update(foundCustomer);
         }

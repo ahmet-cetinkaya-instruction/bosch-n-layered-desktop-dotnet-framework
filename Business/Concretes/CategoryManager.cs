@@ -9,56 +9,56 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace Business.Concretes
 {
     public class CategoryManager : ICategoryService
     {
         private ICategoryDal _categoryDal;
-        private CategoryBusinessRules _businesRules;
-        public CategoryManager(ICategoryDal category, CategoryBusinessRules businesRules)
+        private CategoryBusinessRules _businessRules;
+        private IMapper _mapper;
+        public CategoryManager(ICategoryDal category, CategoryBusinessRules businessRules, IMapper mapper)
         {
             _categoryDal = category;
-            _businesRules = businesRules;
+            _businessRules = businessRules;
+            _mapper = mapper;
         }
+
         public void Add(CreateCategoryRequest request)
         {
-            _businesRules.CheckIfCategoryNameExists(request.Name);
-            Category category = new Category() { CategoryName=request.Name};
+            _businessRules.CheckIfCategoryNameExists(request.Name);
+            Category category = _mapper.Map<Category>(request);
             _categoryDal.Add(category); 
         }
 
         public void Delete(DeleteCategoryRequest request)
         {
-            _businesRules.CheckIfCategoryNotExist(request.Id);
-            Category category = new Category() { CategoryID = request.Id };
+            _businessRules.CheckIfCategoryNotExist(request.Id);
+            Category category = _mapper.Map<Category>(request);
             _categoryDal.Delete(category);
         }
 
         public List<ListCategoryResponse> GetAll()
         {
-            List <ListCategoryResponse> list = new List<ListCategoryResponse> ();
-            foreach (var item in _categoryDal.GetAll())
-            {
-                list.Add(new ListCategoryResponse() { Id = item.CategoryID, Name = item.CategoryName });
-            }
+            List<Category> categories = _categoryDal.GetAll();
+            List<ListCategoryResponse> list = _mapper.Map<List<ListCategoryResponse>>(categories);
             return list;
         }
 
         public GetCategoryResponse GetById(int id)
         {
             var result = _categoryDal.GetById(id);
-            _businesRules.CheckIfCategoryNotExist(result);
-            var response = new GetCategoryResponse() { Id=result.CategoryID,Name=result.CategoryName};
+            _businessRules.CheckIfCategoryNotExist(result);
+            var response = _mapper.Map<GetCategoryResponse>(result);
             return response;
         }
 
         public void Update(UpdateCategoryRequest request)
         {
-            _businesRules.CheckIfCategoryNotExist(request.CategoryID);
-            Category entity = new Category() { CategoryID=request.CategoryID ,CategoryName=request.CategoryName};
+            _businessRules.CheckIfCategoryNotExist(request.CategoryID);
+            Category entity = _mapper.Map<Category>(request);
             _categoryDal.Update(entity);
-
         }
     }
 }
