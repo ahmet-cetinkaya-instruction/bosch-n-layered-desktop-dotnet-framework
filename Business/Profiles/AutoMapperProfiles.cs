@@ -13,8 +13,10 @@ namespace Business.Profiles
             CreateMap<CreateCategoryRequest, Category>();
             CreateMap<UpdateCategoryRequest, Category>();
             CreateMap<Category, GetCategoryResponse>()
-                .ForMember(c => c.Id, config => config.MapFrom(c => c.CategoryID))
-                .ForMember(c => c.Name, config => config.MapFrom(c => c.CategoryName));
+                .ForMember(c => c.Id,
+                           config => config.MapFrom(c => c.CategoryID))
+                .ForMember(c => c.Name,
+                           config => config.MapFrom(c => c.CategoryName));
             CreateMap<List<Category>, List<ListCategoryResponse>>();
         }
     }

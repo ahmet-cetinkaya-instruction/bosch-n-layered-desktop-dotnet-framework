@@ -40,7 +40,7 @@ namespace WinFormsUI
         {
 
             var result = _categoryService.GetById(2);
-            Console.WriteLine(result.Id + "  " + result.Name);
+            Console.WriteLine(result.Id + "  " + result.Name+ " " + result.Description);
 
             //foreach (var item in _customerService.GetAll())
             //{
