@@ -77,7 +77,7 @@ namespace WinFormsUI
             //    request: new UpdateCategoryRequest { Id = 9, Name = "Computer", Description = "Computer_Description" });
 
             _categoryService.Delete(
-                request: new DeleteCategoryRequest { Id = 10 });
+                request: new DeleteCategoryRequest { Id = 16 });
         }
     }
 }

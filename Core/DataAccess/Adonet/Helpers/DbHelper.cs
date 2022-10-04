@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Reflection;
+using Core.Entities;
 
 namespace Core.DataAccess.Adonet.Helpers
 {
     public class DbHelper
     {
         public static List<T> CreateReadConnection<T>(string query) //generic hale getirdik
+            where T : class, // Referans tip
+            IEntity,
+            new()
         {
             SqlConnection sqlConnection = new SqlConnection(@"Data Source=localhost;Initial Catalog=Northwind;User=sa;Password=Passw0rd;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             SqlCommand command = new SqlCommand(query, sqlConnection);
@@ -21,6 +25,9 @@ namespace Core.DataAccess.Adonet.Helpers
 
         //Reflection ile Generic
         public static List<T> DataReaderMapToList<T>(IDataReader dataReader)
+            where T : class, // Referans tip
+            IEntity,
+            new()
         {
             List<T> list = new List<T>(); //ürün listesi
             T objectToMap = default(T); // ürün objesi
@@ -42,7 +49,10 @@ namespace Core.DataAccess.Adonet.Helpers
             return list;
         }
 
-        public static int CreateWriteConnection<T>(string query, T entity) //todo Generic where
+        public static int CreateWriteConnection<T>(string query, T entity)
+            where T : class, // Referans tip
+            IEntity,
+            new()
         {
             SqlConnection connection =
                 new SqlConnection(
