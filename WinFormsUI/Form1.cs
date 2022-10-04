@@ -9,6 +9,7 @@ using Business.Request;
 using Business.Response;
 using DataAccess.Abstracts;
 using DataAccess.Concretes.Adonet;
+using DataAccess.Concretes.EntityFramework;
 
 namespace WinFormsUI
 {
@@ -18,7 +19,7 @@ namespace WinFormsUI
         private ICustomerService _customerService;
         public Form1()
         {
-            ICategoryDal categoryDal = new AdoCategoryDal();
+            ICategoryDal categoryDal = new EfCategoryDal();
             ICustomerDal customerDal = new AdoCustomerDal();
             AutoMapperProfiles autoMapperProfiles = new AutoMapperProfiles();
             var mapperConfig = new MapperConfiguration(cfg =>
