@@ -14,6 +14,8 @@ namespace Business.Profiles
             CreateMap<UpdateCategoryRequest, Category>()
                 .ForMember(c => c.CategoryID, config => config.MapFrom(r => r.Id))
                 .ForMember(c => c.CategoryName, config => config.MapFrom(r => r.Name));
+            CreateMap<DeleteCategoryRequest, Category>()
+                .ForMember(c => c.CategoryID, config => config.MapFrom(r => r.Id));
             CreateMap<Category, GetCategoryResponse>()
                 .ForMember(c => c.Id,
                            config => config.MapFrom(c => c.CategoryID))

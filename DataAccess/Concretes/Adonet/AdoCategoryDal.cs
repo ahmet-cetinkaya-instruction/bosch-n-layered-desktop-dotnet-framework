@@ -20,7 +20,11 @@ namespace DataAccess.Concretes.Adonet
 
         public void Delete(Category category)
         {
-            throw new NotImplementedException();
+            int affectedRowCount = DbHelper.CreateWriteConnection(
+                query: "Delete From Categories where CategoryID=@CategoryID",
+                category
+            );
+            if (affectedRowCount == 0) throw new Exception(message: "No affected row.");
         }
 
         public List<Category> GetAll()
@@ -31,13 +35,20 @@ namespace DataAccess.Concretes.Adonet
 
         public Category GetById(int id)
         {
-            Category category = DbHelper.CreateReadConnection<Category>($"select * from Categories where CategoryId={id}").FirstOrDefault();
+            Category category = DbHelper
+                                .CreateReadConnection<Category>(
+                                    query: $"select * from Categories where CategoryID={id}").FirstOrDefault();
             return category;
         }
 
         public void Update(Category category)
         {
-            throw new NotImplementedException();
+            int affectedRowCount = DbHelper.CreateWriteConnection(
+                query:
+                "Update Categories set CategoryName=@CategoryName, Description=@Description where CategoryID=@CategoryID",
+                category
+            );
+            if (affectedRowCount == 0) throw new Exception(message: "No affected row.");
         }
     }
 }
