@@ -1,19 +1,14 @@
-﻿using Business.Abstracts;
-using Business.BusinessRules;
-using Business.Concretes;
-using DataAccess.Abstracts;
-using DataAccess.Concretes.Adonet;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
 using AutoMapper;
+using Business.Abstracts;
+using Business.BusinessRules;
+using Business.Concretes;
 using Business.Profiles;
+using Business.Request;
+using Business.Response;
+using DataAccess.Abstracts;
+using DataAccess.Concretes.Adonet;
 
 namespace WinFormsUI
 {
@@ -38,14 +33,11 @@ namespace WinFormsUI
 
         private void btnReadData_Click(object sender, EventArgs e)
         {
+            //var result = _categoryService.GetAll();
+            //Console.WriteLine(result.Id + "  " + result.Name+ " " + result.Description);
 
-            var result = _categoryService.GetById(2);
-            Console.WriteLine(result.Id + "  " + result.Name+ " " + result.Description);
-
-            //foreach (var item in _customerService.GetAll())
-            //{
-            //    Console.WriteLine("Customer : " + item.CustomerID + " " + item.CompanyName);
-            //}
+            foreach (ListCategoryResponse item in _categoryService.GetAll())
+                Console.WriteLine(value: "Category : " + item.Id + " " + item.Name);
 
             //var resultOfCustomer = _customerService.GetById("BERGS");
             //Console.WriteLine(resultOfCustomer.CustomerID + " " + resultOfCustomer.CompanyName);
@@ -74,6 +66,12 @@ namespace WinFormsUI
             //{
             //    Console.WriteLine("Employee : " + item.EmployeeID + " " + item.FirstName);
             //}
+        }
+
+        private void btnWriteData_Click(object sender, EventArgs e)
+        {
+            _categoryService.Add(
+                request: new CreateCategoryRequest { Name = "Computer", Description = "Computer_Desc" });
         }
     }
 }

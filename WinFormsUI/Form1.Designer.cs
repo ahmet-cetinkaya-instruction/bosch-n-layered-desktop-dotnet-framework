@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.btnReadData = new System.Windows.Forms.Button();
+            this.btnWriteData = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnReadData
@@ -41,11 +42,22 @@
             this.btnReadData.UseVisualStyleBackColor = true;
             this.btnReadData.Click += new System.EventHandler(this.btnReadData_Click);
             // 
+            // btnWriteData
+            // 
+            this.btnWriteData.Location = new System.Drawing.Point(177, 15);
+            this.btnWriteData.Name = "btnWriteData";
+            this.btnWriteData.Size = new System.Drawing.Size(113, 26);
+            this.btnWriteData.TabIndex = 1;
+            this.btnWriteData.Text = "Write Data";
+            this.btnWriteData.UseVisualStyleBackColor = true;
+            this.btnWriteData.Click += new System.EventHandler(this.btnWriteData_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(815, 231);
+            this.Controls.Add(this.btnWriteData);
             this.Controls.Add(this.btnReadData);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -56,6 +68,7 @@
         #endregion
 
         private System.Windows.Forms.Button btnReadData;
+        private System.Windows.Forms.Button btnWriteData;
     }
 }
 

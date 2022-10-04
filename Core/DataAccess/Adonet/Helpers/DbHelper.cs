@@ -2,11 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Core.DataAccess.Adonet.Helpers
 {
@@ -34,7 +30,7 @@ namespace Core.DataAccess.Adonet.Helpers
                 foreach (PropertyInfo propertyInfo in objectToMap.GetType().GetProperties()) //type göre property ulaşmayı sağlar
                 {
                     //veritabanındaki her şeyi maplememesi için
-                    if (!object.Equals(dataReader[propertyInfo.Name], DBNull.Value)) //db ye göre null olma durumuna karşı, db de null mı değil mi ona göre karşılığını alıyoruz
+                    if (!Equals(dataReader[propertyInfo.Name], DBNull.Value)) //db ye göre null olma durumuna karşı, db de null mı değil mi ona göre karşılığını alıyoruz
                     {
                         propertyInfo.SetValue(objectToMap, dataReader[propertyInfo.Name], null); //datareader property info name alanında
                     }
@@ -44,6 +40,28 @@ namespace Core.DataAccess.Adonet.Helpers
             }
 
             return list;
+        }
+
+        public static int CreateWriteConnection<T>(string query, T entity) //todo Generic where
+        {
+            SqlConnection connection =
+                new SqlConnection(
+                    connectionString:
+                    @"Data Source=localhost;Initial Catalog=Northwind;User=sa;Password=Passw0rd;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            connection.Open();
+
+            SqlCommand command = new SqlCommand(query, connection);
+            foreach (PropertyInfo propertyInfo in entity.GetType().GetProperties())
+            {
+                string parameterName = $"@{propertyInfo.Name}";
+                if (!query.Contains(parameterName)) continue;
+
+                command.Parameters.AddWithValue(parameterName, value: propertyInfo.GetValue(entity));
+            }
+
+            int affectedRowCount = command.ExecuteNonQuery();
+            connection.Close();
+            return affectedRowCount;
         }
     }
 }

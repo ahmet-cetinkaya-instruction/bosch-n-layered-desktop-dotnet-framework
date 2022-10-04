@@ -1,15 +1,11 @@
-﻿using Business.Abstracts;
+﻿using System.Collections.Generic;
+using AutoMapper;
+using Business.Abstracts;
 using Business.BusinessRules;
 using Business.Request;
 using Business.Response;
 using DataAccess.Abstracts;
 using Entities.Concretes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
 
 namespace Business.Concretes
 {
@@ -27,7 +23,7 @@ namespace Business.Concretes
 
         public void Add(CreateCategoryRequest request)
         {
-            _businessRules.CheckIfCategoryNameExists(request.Name);
+            //_businessRules.CheckIfCategoryNameExists(request.Name);
             Category category = _mapper.Map<Category>(request);
             _categoryDal.Add(category); 
         }
@@ -56,7 +52,7 @@ namespace Business.Concretes
 
         public void Update(UpdateCategoryRequest request)
         {
-            _businessRules.CheckIfCategoryNotExist(request.CategoryID);
+            _businessRules.CheckIfCategoryNotExist(request.Id);
             Category entity = _mapper.Map<Category>(request);
             _categoryDal.Update(entity);
         }
