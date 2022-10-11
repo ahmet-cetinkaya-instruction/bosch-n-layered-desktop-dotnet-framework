@@ -6,6 +6,7 @@ using Business.BusinessRules;
 using Business.Request;
 using Business.Response;
 using Business.ValidationResolvers.FluentValidation.Category;
+using Core.Validation;
 using DataAccess.Abstracts;
 using Entities.Concretes;
 using FluentValidation;
@@ -26,7 +27,6 @@ namespace Business.Concretes
 
         public void Add(CreateCategoryRequest request)
         {
-            //_businessRules.CheckIfCategoryNameExists(request.Name);
             //System.ComponentModel.DataAnnotations.ValidationContext context = new System.ComponentModel.DataAnnotations.ValidationContext(request, null, null);
 
             //IList<ValidationResult> validationResults = new List<ValidationResult>();
@@ -40,24 +40,10 @@ namespace Business.Concretes
 
             //    return;
             //}
+            _businessRules.CheckIfCategoryNameExists(request.Name);
 
-            var context = new ValidationContext<CreateCategoryRequest>(request);
-            IValidator validator = new CreateCategoryRequestValidator();
-
-            var result = validator.Validate(context);
-
-            if (!result.IsValid) // Validasyon hatası mevcut!!
-            {
-                foreach (var item in result.Errors)
-                {
-                    Console.WriteLine(item.ErrorMessage);
-                }
-
-                //TO DO: Throw exception and handle globally.
-
-                return;
-            }
-
+            ValidationHelper<CreateCategoryRequest>
+                .Validate(typeof(CreateCategoryRequestValidator),request);
 
             //ValidationTool.Validate(validator, request);
             Category category = _mapper.Map<Category>(request);

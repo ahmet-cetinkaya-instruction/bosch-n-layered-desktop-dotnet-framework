@@ -1,4 +1,5 @@
-﻿using DataAccess.Abstracts;
+﻿using Core.Exceptions;
+using DataAccess.Abstracts;
 using Entities.Concretes;
 using System;
 using System.Collections.Generic;
@@ -38,12 +39,12 @@ namespace Business.BusinessRules
         {
 
             if (category is null)
-                throw new Exception("Bu category'nin kaydı bulunmamaktadır.");
+                throw new BusinessException("Bu category'nin kaydı bulunmamaktadır.");
         }
         public void CheckIfCategoryExists(Category category)
         {
             if (category != null)
-                throw new Exception("Bu category'nin kaydı bulunmaktadır.");
+                throw new BusinessException("Bu category'nin kaydı bulunmaktadır.");
 
         }
 
