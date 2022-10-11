@@ -71,14 +71,14 @@ namespace WinFormsUI
 
         private void btnWriteData_Click(object sender, EventArgs e)
         {
-            //_categoryService.Add(
-            //    request: new CreateCategoryRequest { Name = "Computer", Description = "Computer_Desc" });
+            _categoryService.Add(
+                request: new CreateCategoryRequest { Name = "co", Description = "Computer_Desc" });
 
             //_categoryService.Update(
             //    request: new UpdateCategoryRequest { Id = 9, Name = "Computer", Description = "Computer_Description" });
 
-            _categoryService.Delete(
-                request: new DeleteCategoryRequest { Id = 16 });
+            //_categoryService.Delete(
+            //    request: new DeleteCategoryRequest { Id = 16 });
         }
     }
 }
