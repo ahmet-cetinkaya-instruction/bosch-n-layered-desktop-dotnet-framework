@@ -40,7 +40,6 @@ namespace Business.Concretes
 
             //    return;
             //}
-            _businessRules.CheckIfCategoryNameExists(request.Name);
 
             ValidationHelper<CreateCategoryRequest>
                 .Validate(typeof(CreateCategoryRequestValidator),request);

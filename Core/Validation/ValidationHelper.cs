@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Core.Exceptions;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace Core.Validation
 
             if (!result.IsValid) // Validasyon hatası mevcut!!
             {
-                throw new FluentValidation.ValidationException(result.Errors);
+                throw new CustomValidationException(result.Errors);
             }
         }
     }

@@ -27,27 +27,23 @@ namespace WinFormsUI
         {
             // Gelen exceptiona göre davranışlar..
             // Backlog: switch yapısına çevirilecek.
-            if(e.Exception is ValidationException)
+            if(e.Exception is CustomValidationException)
             {
-                var validationError = (ValidationException)e.Exception;
+                var validationError = (CustomValidationException)e.Exception;
                 HandleValidationException(validationError);
             }
             if(e.Exception is BusinessException)
             {
                 var businessException = (BusinessException)e.Exception;
-                MessageBox.Show(businessException.ErrorMessage, "Business Hatası");
+                MessageBox.Show(businessException.ToString(), "Business Hatası");
             }
             Console.WriteLine("Exception fırlatıldı!!!!");
         }
 
-        private static void HandleValidationException(ValidationException validationError)
+        // Custom Exception Class: İçindeki erroları mesaj olarak alt alta döndürsün.
+        private static void HandleValidationException(CustomValidationException validationError)
         {
-            string message = "";
-            foreach (var item in validationError.Errors)
-            {
-                message += item.ErrorMessage + "\n";
-            }
-            MessageBox.Show(message, "Validasyon Hatası");
+            MessageBox.Show(validationError.ToString(), "Validasyon Hatası");
         }
     }
 }

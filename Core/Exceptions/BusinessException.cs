@@ -13,5 +13,10 @@ namespace Core.Exceptions
         {
             ErrorMessage = errorMessage;
         }
+
+        public override string ToString()
+        {
+            return ErrorMessage;
+        }
     }
 }
