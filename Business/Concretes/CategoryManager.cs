@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using Business.Abstracts;
 using Business.BusinessRules;
 using Business.Request;
 using Business.Response;
+using Business.ValidationResolvers.FluentValidation.Category;
+using Core.Validation;
 using DataAccess.Abstracts;
 using Entities.Concretes;
+using FluentValidation;
 
 namespace Business.Concretes
 {
@@ -23,7 +27,24 @@ namespace Business.Concretes
 
         public void Add(CreateCategoryRequest request)
         {
-            //_businessRules.CheckIfCategoryNameExists(request.Name);
+            //System.ComponentModel.DataAnnotations.ValidationContext context = new System.ComponentModel.DataAnnotations.ValidationContext(request, null, null);
+
+            //IList<ValidationResult> validationResults = new List<ValidationResult>();
+
+            //if (!Validator.TryValidateObject(request, context, validationResults,true))
+            //{
+            //    foreach (var result in validationResults)
+            //    {
+            //        Console.WriteLine("Validasyon Hatası:" + result.ErrorMessage);
+            //    }
+
+            //    return;
+            //}
+
+            ValidationHelper<CreateCategoryRequest>
+                .Validate(typeof(CreateCategoryRequestValidator),request);
+
+            //ValidationTool.Validate(validator, request);
             Category category = _mapper.Map<Category>(request);
             _categoryDal.Add(category); 
         }

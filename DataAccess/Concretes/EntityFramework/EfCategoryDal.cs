@@ -19,12 +19,20 @@ namespace DataAccess.Concretes.EntityFramework
 
         public Category GetById(int id)
         {
-            throw new NotImplementedException();
+            using(NorthwindContext context = new NorthwindContext())
+            {
+                return context.Categories.FirstOrDefault(i => i.CategoryID == id);
+            }
         }
 
         public void Delete(Category request)
         {
-            throw new NotImplementedException();
+            using(NorthwindContext context = new NorthwindContext())
+            {
+                Category categoryToDelete = context.Categories.FirstOrDefault(i=>i.CategoryID == request.CategoryID);
+                context.Categories.Remove(categoryToDelete);
+                context.SaveChanges();
+            }
         }
 
         public void Update(Category request)
@@ -34,7 +42,11 @@ namespace DataAccess.Concretes.EntityFramework
 
         public void Add(Category request)
         {
-            throw new NotImplementedException();
+            using(NorthwindContext context = new NorthwindContext())
+            {
+                context.Categories.Add(request);
+                context.SaveChanges();
+            }
         }
     }
 }
